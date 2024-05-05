@@ -106,7 +106,7 @@ func (s *Scraper) FetchCharacter(id uint32) (*Character, error) {
 	charCollector := s.buildCharacterCollector(&charData)
 
 	charCollector.OnError(func(r *colly.Response, err error) {
-		errors <- err
+		errors <- newScrapeError(r, err)
 	})
 
 	charSelectors := s.getProfileSelectors().Character
@@ -193,7 +193,7 @@ func (s *Scraper) FetchCharacterMinions(id uint32) ([]*Minion, error) {
 		minionCollector := s.buildMinionCollector(output)
 		minionCollector.OnError(func(r *colly.Response, err error) {
 			if err.Error() != http.StatusText(http.StatusNotFound) {
-				errors <- err
+				errors <- newScrapeError(r, err)
 			}
 		})
 		minionCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/character/%d/minion/", s.lang, id))
@@ -233,7 +233,7 @@ func (s *Scraper) FetchCharacterMounts(id uint32) ([]*Mount, error) {
 		mountCollector := s.buildMountCollector(output)
 		mountCollector.OnError(func(r *colly.Response, err error) {
 			if err.Error() != http.StatusText(http.StatusNotFound) {
-				errors <- err
+				errors <- newScrapeError(r, err)
 			}
 		})
 		mountCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/character/%d/mount/", s.lang, id))
@@ -275,7 +275,7 @@ func (s *Scraper) FetchCharacterAchievements(id uint32) ([]*AchievementInfo, *Al
 		achievementCollector := s.buildAchievementCollector(allAchievementInfo, output, errors)
 		achievementCollector.OnError(func(r *colly.Response, err error) {
 			if err.Error() != http.StatusText(http.StatusForbidden) {
-				errors <- err
+				errors <- newScrapeError(r, err)
 			} else {
 				// 403
 				allAchievementInfo.Private = true
@@ -315,7 +315,7 @@ func (s *Scraper) FetchLinkshell(id string) (*Linkshell, error) {
 
 	lsCollector := s.buildLinkshellCollector(&ls)
 	lsCollector.OnError(func(r *colly.Response, err error) {
-		errors <- err
+		errors <- newScrapeError(r, err)
 	})
 	lsCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/linkshell/%s", s.lang, id))
 	lsCollector.Wait()
@@ -339,7 +339,7 @@ func (s *Scraper) FetchCWLS(id string) (*CWLS, error) {
 
 	cwlsCollector := s.buildCWLSCollector(&cwls)
 	cwlsCollector.OnError(func(r *colly.Response, err error) {
-		errors <- err
+		errors <- newScrapeError(r, err)
 	})
 	cwlsCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/crossworld_linkshell/%s", s.lang, id))
 	cwlsCollector.Wait()
@@ -363,7 +363,7 @@ func (s *Scraper) FetchPVPTeam(id string) (*PVPTeam, error) {
 
 	pvpTeamCollector := s.buildPVPTeamCollector(&pvpTeam)
 	pvpTeamCollector.OnError(func(r *colly.Response, err error) {
-		errors <- err
+		errors <- newScrapeError(r, err)
 	})
 	pvpTeamCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/pvpteam/%s", s.lang, id))
 	pvpTeamCollector.Wait()
@@ -387,7 +387,7 @@ func (s *Scraper) FetchFreeCompany(id string) (*FreeCompany, error) {
 
 	fcCollector := s.buildFreeCompanyCollector(&fc)
 	fcCollector.OnError(func(r *colly.Response, err error) {
-		errors <- err
+		errors <- newScrapeError(r, err)
 	})
 	fcCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/freecompany/%s", s.lang, id))
 	fcCollector.Wait()
@@ -411,7 +411,7 @@ func (s *Scraper) FetchFreeCompanyMembers(id string) chan *FreeCompanyMember {
 		fcMembersCollector := s.buildFreeCompanyMembersCollector(output)
 		fcMembersCollector.OnError(func(r *colly.Response, err error) {
 			output <- &FreeCompanyMember{
-				Error: err,
+				Error: newScrapeError(r, err),
 			}
 		})
 		fcMembersCollector.Visit(fmt.Sprintf("https://%s.finalfantasyxiv.com/lodestone/freecompany/%s/member/", s.lang, id))
@@ -445,7 +445,7 @@ func (s *Scraper) SearchFreeCompanies(opts FreeCompanyOptions) chan *FreeCompany
 			mu.Lock()
 			if revisited[url] {
 				output <- &FreeCompanySearchResult{
-					Error: err,
+					Error: newScrapeError(r, err),
 				}
 			} else {
 				searchCollector.Visit(url)
@@ -500,7 +500,7 @@ func (s *Scraper) SearchCharacters(opts CharacterOptions) chan *CharacterSearchR
 			mu.Lock()
 			if revisited[url] {
 				output <- &CharacterSearchResult{
-					Error: err,
+					Error: newScrapeError(r, err),
 				}
 			} else {
 				searchCollector.Visit(url)
@@ -554,7 +554,7 @@ func (s *Scraper) SearchCWLS(opts CWLSOptions) chan *CWLSSearchResult {
 			mu.Lock()
 			if revisited[url] {
 				output <- &CWLSSearchResult{
-					Error: err,
+					Error: newScrapeError(r, err),
 				}
 			} else {
 				searchCollector.Visit(url)
@@ -608,7 +608,7 @@ func (s *Scraper) SearchLinkshells(opts LinkshellOptions) chan *LinkshellSearchR
 			mu.Lock()
 			if revisited[url] {
 				output <- &LinkshellSearchResult{
-					Error: err,
+					Error: newScrapeError(r, err),
 				}
 			} else {
 				searchCollector.Visit(url)
@@ -662,7 +662,7 @@ func (s *Scraper) SearchPVPTeams(opts PVPTeamOptions) chan *PVPTeamSearchResult 
 			mu.Lock()
 			if revisited[url] {
 				output <- &PVPTeamSearchResult{
-					Error: err,
+					Error: newScrapeError(r, err),
 				}
 			} else {
 				searchCollector.Visit(url)
