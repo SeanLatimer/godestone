@@ -2,6 +2,7 @@ package godestone
 
 import (
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gocolly/colly/v2"
@@ -167,6 +168,14 @@ func (s *Scraper) buildFreeCompanyCollector(fc *FreeCompany) *colly.Collector {
 
 		fc.Seeking = append(fc.Seeking, info)
 	}
+
+	c.OnHTML(basicSelectors.GrandCompany.Selector, func(e *colly.HTMLElement) {
+		gcName := strings.TrimSpace(basicSelectors.GrandCompany.Parse(e)[0])
+		gc, err := s.dataProvider.GrandCompany(gcName)
+		if err == nil {
+			fc.GrandCompany = gc
+		}
+	})
 
 	repSelectors := s.getFreeCompanySelectors().Reputation
 	repSelectorsPtrs := []*selectors.FreeCompanyAlignmentSelectors{
