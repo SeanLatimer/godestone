@@ -232,8 +232,16 @@ func (s *Scraper) buildFreeCompanyMembersCollector(output chan *FreeCompanyMembe
 			member := &FreeCompanyMember{
 				Avatar:   membersSelectors.Entry.Avatar.ParseThroughChildren(e)[0],
 				Name:     membersSelectors.Entry.Name.ParseThroughChildren(e)[0],
-				Rank:     gcrank.Parse(membersSelectors.Entry.Rank.ParseThroughChildren(e)[0]),
+				Rank:     membersSelectors.Entry.Rank.ParseThroughChildren(e)[0],
 				RankIcon: membersSelectors.Entry.RankIcon.ParseThroughChildren(e)[0],
+			}
+
+			gcName := membersSelectors.Entry.GC.ParseThroughChildren(e)[0]
+			gcRank := gcrank.Parse(membersSelectors.Entry.GCRank.ParseThroughChildren(e)[0])
+			gcRankIcon := membersSelectors.Entry.GCRankIcon.ParseThroughChildren(e)[0]
+			gc, err := s.dataProvider.GrandCompany(gcName)
+			if err == nil {
+				member.GrandCompanyInfo = &GrandCompanyInfo{GrandCompany: gc, RankID: gcRank, RankIcon: gcRankIcon}
 			}
 
 			worldDC := membersSelectors.Entry.Server.ParseThroughChildren(e)

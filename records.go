@@ -279,13 +279,16 @@ type FreeCompanySeekingInfo struct {
 type FreeCompanyMember struct {
 	Error error `json:"-"`
 
-	Avatar   string
-	ID       uint32
-	Name     string
-	Rank     gcrank.GCRank
-	RankIcon string
-	World    string
-	DC       string
+	Avatar           string
+	ID               uint32
+	Name             string
+	Rank             string
+	RankIcon         string
+	GrandCompanyInfo *GrandCompanyInfo
+	// GCRank     gcrank.GCRank
+	// GCRankIcon string
+	World string
+	DC    string
 }
 
 // FreeCompany represents all of the basic information about an FC.

@@ -40,13 +40,16 @@ type FreeCompanyBasicSelectors struct {
 type FreeCompanyMemberSelectors struct {
 	Root  SelectorInfo `json:"ROOT"`
 	Entry struct {
-		Root     SelectorInfo `json:"ROOT"`
-		Avatar   SelectorInfo `json:"AVATAR"`
-		ID       SelectorInfo `json:"ID"`
-		Name     SelectorInfo `json:"NAME"`
-		Rank     SelectorInfo `json:"RANK"`
-		RankIcon SelectorInfo `json:"RANK_ICON"`
-		Server   SelectorInfo `json:"SERVER"`
+		Root       SelectorInfo `json:"ROOT"`
+		Avatar     SelectorInfo `json:"AVATAR"`
+		ID         SelectorInfo `json:"ID"`
+		Name       SelectorInfo `json:"NAME"`
+		Rank       SelectorInfo `json:"FC_RANK"`
+		RankIcon   SelectorInfo `json:"FC_RANK_ICON"`
+		GC         SelectorInfo `json:"GC"`
+		GCRank     SelectorInfo `json:"GC_RANK"`
+		GCRankIcon SelectorInfo `json:"GC_RANK_ICON"`
+		Server     SelectorInfo `json:"SERVER"`
 	} `json:"ENTRY"`
 	ListNextButton SelectorInfo `json:"LIST_NEXT_BUTTON"`
 }
