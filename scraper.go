@@ -144,6 +144,8 @@ func (s *Scraper) FetchCharacter(id uint32) (*Character, error) {
 	for _, cj := range charData.ClassJobs {
 		if cj.Name == activeClassJobName {
 			charData.ActiveClassJob = cj
+			charData.GearSet.ClassID = cj.ClassID
+			charData.GearSet.JobID = cj.JobID
 		}
 	}
 

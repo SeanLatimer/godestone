@@ -52,30 +52,30 @@ type Title struct {
 
 // Character represents the information available about a character on The Lodestone.
 type Character struct {
-	ActiveClassJob    *ClassJob
+	ID                uint32
+	Name              string
 	Avatar            string
+	Nameday           string
+	Portrait          string
+	Title             *Title
+	Race              *models.GenderedEntity
+	Tribe             *models.GenderedEntity
+	Gender            gender.Gender
+	Town              *IconedNamedEntity
+	GuardianDeity     *IconedNamedEntity
 	Bio               string
-	ClassJobs         []*ClassJob
-	ClassJobBozjan    *ClassJobBozja
-	ClassJobElemental *ClassJobEureka
+	GrandCompanyInfo  *GrandCompanyInfo
+	World             string
 	DC                string
+	ActiveClassJob    *ClassJob
 	FreeCompanyID     string
 	FreeCompanyName   string
 	GearSet           *GearSet
-	Gender            gender.Gender
-	GrandCompanyInfo  *GrandCompanyInfo
-	GuardianDeity     *IconedNamedEntity
-	ID                uint32
-	Name              string
-	Nameday           string
-	ParseDate         time.Time
-	Portrait          string
 	PvPTeamID         string
-	Race              *models.GenderedEntity
-	Title             *Title
-	Town              *IconedNamedEntity
-	Tribe             *models.GenderedEntity
-	World             string
+	ClassJobs         []*ClassJob
+	ClassJobBozjan    *ClassJobBozja
+	ClassJobElemental *ClassJobEureka
+	ParseDate         time.Time
 }
 
 // CharacterSearchResult contains data from the character search page about a character.
@@ -210,6 +210,7 @@ type GearSet struct {
 type GrandCompanyInfo struct {
 	GrandCompany *models.NamedEntity
 	RankID       gcrank.GCRank
+	RankIcon     string
 }
 
 // FreeCompanyActiveState is the active state of an FC.

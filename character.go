@@ -45,16 +45,22 @@ func (s *Scraper) buildCharacterCollector(
 		}
 	})
 
+	charData.GrandCompanyInfo = &GrandCompanyInfo{}
 	c.OnHTML(charSelectors.GrandCompany.Selector, func(e *colly.HTMLElement) {
 		values := charSelectors.GrandCompany.Parse(e)
-
 		gcName := values[0]
 		gcRank := gcrank.Parse(values[1])
 
 		gc, err := s.dataProvider.GrandCompany(gcName)
 		if err == nil {
-			charData.GrandCompanyInfo = &GrandCompanyInfo{GrandCompany: gc, RankID: gcRank}
+			charData.GrandCompanyInfo.GrandCompany = gc
+			charData.GrandCompanyInfo.RankID = gcRank
 		}
+	})
+
+	c.OnHTML(charSelectors.GrandCompanyIcon.Selector, func(e *colly.HTMLElement) {
+		gcIcon := charSelectors.GrandCompanyIcon.Parse(e)[0]
+		charData.GrandCompanyInfo.RankIcon = gcIcon
 	})
 
 	charData.GuardianDeity = &IconedNamedEntity{}

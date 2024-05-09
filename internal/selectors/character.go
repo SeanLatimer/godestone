@@ -49,38 +49,10 @@ type AttributeSelectors struct {
 
 // CharacterSelectors represents all CSS selectors associated with basic character data.
 type CharacterSelectors struct {
-	ActiveClassJob      SelectorInfo `json:"ACTIVE_CLASSJOB"`
-	ActiveClassJobLevel SelectorInfo `json:"ACTIVE_CLASSJOB_LEVEL"`
-	Avatar              SelectorInfo `json:"AVATAR"`
-	Bio                 SelectorInfo `json:"BIO"`
-	ClassJobIcons       struct {
-		Root SelectorInfo `json:"ROOT"`
-		Icon SelectorInfo `json:"ICON"`
-	} `json:"CLASSJOB_ICONS"`
-	FreeCompany struct {
-		Name       SelectorInfo `json:"NAME"`
-		IconLayers struct {
-			Bottom SelectorInfo `json:"BOTTOM"`
-			Middle SelectorInfo `json:"MIDDLE"`
-			Top    SelectorInfo `json:"TOP"`
-		} `json:"ICON_LAYERS"`
-	} `json:"FREE_COMPANY"`
-	GrandCompany  SelectorInfo `json:"GRAND_COMPANY"`
-	GuardianDeity struct {
-		Name SelectorInfo `json:"NAME"`
-		Icon SelectorInfo `json:"ICON"`
-	} `json:"GUARDIAN_DEITY"`
-	Name     SelectorInfo `json:"NAME"`
-	Nameday  SelectorInfo `json:"NAMEDAY"`
-	Portrait SelectorInfo `json:"PORTRAIT"`
-	PvPTeam  struct {
-		Name       SelectorInfo `json:"NAME"`
-		IconLayers struct {
-			Bottom SelectorInfo `json:"BOTTOM"`
-			Middle SelectorInfo `json:"MIDDLE"`
-			Top    SelectorInfo `json:"TOP"`
-		} `json:"ICON_LAYERS"`
-	} `json:"PVP_TEAM"`
+	Avatar         SelectorInfo `json:"AVATAR"`
+	Name           SelectorInfo `json:"NAME"`
+	Nameday        SelectorInfo `json:"NAMEDAY"`
+	Portrait       SelectorInfo `json:"PORTRAIT"`
 	RaceClanGender SelectorInfo `json:"RACE_CLAN_GENDER"`
 	Server         SelectorInfo `json:"SERVER"`
 	Title          SelectorInfo `json:"TITLE"`
@@ -88,6 +60,35 @@ type CharacterSelectors struct {
 		Name SelectorInfo `json:"NAME"`
 		Icon SelectorInfo `json:"ICON"`
 	} `json:"TOWN"`
+	Bio           SelectorInfo `json:"BIO"`
+	GuardianDeity struct {
+		Name SelectorInfo `json:"NAME"`
+		Icon SelectorInfo `json:"ICON"`
+	} `json:"GUARDIAN_DEITY"`
+	GrandCompany        SelectorInfo `json:"GRAND_COMPANY"`
+	GrandCompanyIcon    SelectorInfo `json:"GRAND_COMPANY_ICON"`
+	ActiveClassJob      SelectorInfo `json:"ACTIVE_CLASSJOB"`
+	ActiveClassJobLevel SelectorInfo `json:"ACTIVE_CLASSJOB_LEVEL"`
+	FreeCompany         struct {
+		Name       SelectorInfo `json:"NAME"`
+		IconLayers struct {
+			Bottom SelectorInfo `json:"BOTTOM"`
+			Middle SelectorInfo `json:"MIDDLE"`
+			Top    SelectorInfo `json:"TOP"`
+		} `json:"ICON_LAYERS"`
+	} `json:"FREE_COMPANY"`
+	ClassJobIcons struct {
+		Root SelectorInfo `json:"ROOT"`
+		Icon SelectorInfo `json:"ICON"`
+	} `json:"CLASSJOB_ICONS"`
+	PvPTeam struct {
+		Name       SelectorInfo `json:"NAME"`
+		IconLayers struct {
+			Bottom SelectorInfo `json:"BOTTOM"`
+			Middle SelectorInfo `json:"MIDDLE"`
+			Top    SelectorInfo `json:"TOP"`
+		} `json:"ICON_LAYERS"`
+	} `json:"PVP_TEAM"`
 }
 
 // MinionSelectors represents all CSS selectors associated with character minions.
