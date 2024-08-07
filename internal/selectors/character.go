@@ -174,6 +174,7 @@ type ClassJobSelectors struct {
 	Ninja         OneClassJobSelectors `json:"NINJA"`
 	Samurai       OneClassJobSelectors `json:"SAMURAI"`
 	Reaper        OneClassJobSelectors `json:"REAPER"`
+	Viper         OneClassJobSelectors `json:"VIPER"`
 	WhiteMage     OneClassJobSelectors `json:"WHITEMAGE"`
 	Scholar       OneClassJobSelectors `json:"SCHOLAR"`
 	Astrologian   OneClassJobSelectors `json:"ASTROLOGIAN"`
@@ -184,6 +185,7 @@ type ClassJobSelectors struct {
 	BlackMage     OneClassJobSelectors `json:"BLACKMAGE"`
 	Summoner      OneClassJobSelectors `json:"SUMMONER"`
 	RedMage       OneClassJobSelectors `json:"REDMAGE"`
+	Pictomancer   OneClassJobSelectors `json:"PICTOMANCER"`
 	BlueMage      OneClassJobSelectors `json:"BLUEMAGE"`
 	Carpenter     OneClassJobSelectors `json:"CARPENTER"`
 	Blacksmith    OneClassJobSelectors `json:"BLACKSMITH"`
